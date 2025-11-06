@@ -161,7 +161,6 @@ As a rollback option, Logistic Regression with a 0.5 threshold can serve as a ba
 
 ### Creating FlaskAPI for Inference Predictions:
 
-<img width="641" height="215" alt="Screenshot 2025-11-05 at 11 51 59" src="https://github.com/user-attachments/assets/06ff298c-5c05-4547-a2ef-b7cf33a478a6" />
 
 -----
 
