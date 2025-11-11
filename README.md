@@ -62,7 +62,7 @@ Stored performance metrics from log model like classfication report (F1, Precisi
 
 Next, Moved to Xgboost for more complex model, implemented classifier using similar preoprocesor using scale_pos_weight, n_estimators, Max_depth, col_sample, sub_sample. 
 
-##  Model Deployement and Model Hosting:
+##  Model Deployment and Model Hosting:
 
 Saved the XGBoost model as a .pkl file since it provided the best balance between precision and recall. Developed a lightweight API service to accept new inputs and return predictions instantly, and deployed it on AWS Elastic Beanstalk to monitor logs, thresholds, and performance drifts.
 
