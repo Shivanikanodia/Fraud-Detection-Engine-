@@ -48,12 +48,6 @@ To Provide an interface to Risk Team, banking system, or customer support team â
 
 1. Merchants data was significantly higher then usual, 2000 uniques merchants. Grouped mechant name as "Others" for merchant frequency less than 250. This reduced high cardinality, improved model efficiency, and prevented overfitting. It also helped the model focus on merchants with enough data to learn meaningful fraud patterns. 
 
-<img width="833" height="453" alt="Screenshot 2025-10-16 at 10 08 05" src="https://github.com/user-attachments/assets/511e2a0f-c948-427c-85b4-f28eb06e407f" />
-
-<img width="778" height="448" alt="Screenshot 2025-10-16 at 10 08 10" src="https://github.com/user-attachments/assets/d63cb34a-8498-44eb-be4e-19dbddde1dfc" />
-
-<img width="766" height="460" alt="Screenshot 2025-10-16 at 10 08 16" src="https://github.com/user-attachments/assets/9ff0b5a3-d19e-4bff-bb76-222d30cd3278" />
-
 2. Fraud Detection dataset is usually highly imbalanced, to solve this created data preoprocessing pipeline and handlled class imbalance effectively. To Make Preprocessing Modular and Reproducible, used coulmn transformers inside pipeline. This allows seperate preprocessing for numerical, categorical, log_transformed and binary values, avoiding data leakage.
 
 -----
@@ -61,27 +55,18 @@ To Provide an interface to Risk Team, banking system, or customer support team â
 ### Model Selection, Model Traning and Model Evaluation:
 
 Logistic Regression was selected as base model as its more interpretable and provide clear coefficents for feature importance. 
-Created sklearn logisitc pipeline has encapsulated coulmn transformer (Scaling and preprocessing), SMOTE to handle class imbalance, by creating synthetic samples of minority class and Logistic Regression serves as the final classifier with max_iter=1000 for convergence.  Pipeline allow training on raw data X_train, y_train and testing on X_test and y_test. 
 
-Stored performance metrics from log model like classfication report (F1, Precision and Recall) confusion matrix . With recall of 70% , model did a good job capturing 70% of the fraudulent transaction i.e minimizing false negative and mazimizing Recall. While high number of false positives (>8000) were detected at thresold of 0.5. We also checked by improving thresold little which improved our precision. 
+Created sklearn logisitc pipeline has encapsulated coulmn transformer (Scaling and preprocessing), SMOTE to handle class imbalance, by creating synthetic samples of minority class and Logistic Regression serves as the final classifier with max_iter=1000 for convergence. 
 
-Because catching even a small fraction of actual frauds among millions of legitimate transactions is already a major win.
+Stored performance metrics from log model like classfication report (F1, Precision and Recall) confusion matrix .
 
 Next, Moved to Xgboost for more complex model, implemented classifier using similar preoprocesor using scale_pos_weight, n_estimators, Max_depth, col_sample, sub_sample. 
 
 ##  Model Deployement and Model Hosting:
 
-**Saved Xgboost Model as pkl as best model as its gives a balance between precison and recall, created a lightweight API or service that can accept new input and return predictions immediately using FlaskAPI and hosted on AWS Elastic beanstalk for monitoring logs, thresolds and drifts in performance.**
+Saved the XGBoost model as a .pkl file since it provided the best balance between precision and recall. Developed a lightweight API service to accept new inputs and return predictions instantly, and deployed it on AWS Elastic Beanstalk to monitor logs, thresholds, and performance drifts.
 
-**The pipeline ensures automation, consistency, and high interpretability â€” making it suitable for catching fraud in real time.**
-
------
-
-**Data Sanity and quality Checks and Data Validation**:
-
-Checked If data was transformed correctly using name_steps/Features_name after preprocessing.
-Checked  actual vs predicted values, ensured doing SMOTE before splitting into train/test.
-Applying StandardScaler or LabelEncodermanually before the split.
+The deployment pipeline extends the training pipeline and implements a continuous deployment workflow. It preps the input data, trains a model, and  return predictions. 
 
 ------
 
@@ -95,14 +80,31 @@ Model is most driven by merchant category, transaction amount and spending patte
 
 ---
 
-### TOP PREDICTORS OF FRAUD:
-
 **Merchants and Peak Hours to Watch out:**
 
-Uber, Lyft, Ebay.com, Walmart, discount, Gap and Sears consistently appeared in list where Fraud transaction volume and  fraud counts were high. This evidented from the temporal analysis where hours like 12:00 AM, 01:00 AM and 03:00 AM were targeted mostly and these specific merchants showed fraudulent activity indicating low monitoring hours or bot testing.
+Uber, Lyft, Ebay.com, Walmart, discount, Gap and Sears consistently appeared in list where Fraud transaction volume were high. This evidented from the temporal analysis where hours like 12:00 AM, 01:00 AM and 03:00 AM were targeted mostly and these specific merchants showed fraudulent activity indicating low monitoring hours or bot testing.
 
 ### FUTURE WORK:
 
-- Working on creating AI agent Interface which help risk team and customers to input Case details like Transaction_id,  Amount, Merchant_name, Transaction_Hour, Merchant_Location, Channel to detect fraud. AI would sends those inputs to your API Endpoint and will respond based on model behaviour, ensuring sensitivty, data privacy and compliance.
-- Iâ€™d set up model monitoring with tools like EvidentlyAI to track drift, precision, and recall over time.
+- Working on creating AI agent Interface which help risk team and customers to understand if transaction is fraudulent by inputing Case details like Transaction_id, Transaction_Amount, Merchant_name, Transaction_Hour, Merchant_Location, Channel.
+- AI would use SHAP Explainations and sends those inputs to your API Endpoint and will respond based on model behaviour, ensuring sensitivty, data privacy and compliance.
+
+**1.Monitoring & Observability:**
+
+Performance: accuracy/precision/recall/PR-AUC 
+
+Data: schema/volume drift, feature drift, label drift (once labels arrive).
+
+Ops: latency, throughput, error rate, timeouts, dependency health.
+
+**2. Logging & Audit:**
+
+Log request payload fingerprints, feature values (hashed for PII), model/feature versions, decision, explanation, and outcome.
+
+Retain inference logs with trace IDs to training rows (data lineage).
+
+Privacy: redact PII, tokenize identifiers.
+
+
+### Instructions to run. 
 
