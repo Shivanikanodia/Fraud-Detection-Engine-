@@ -60,7 +60,7 @@ Built bar charts to visualize merchant categories by fraud rate and fraud amount
 
 - Uber, Lyft, Walmart, Target, Sears, and Amazon had losses of $10K–$35K with 2–5% fraud rates, indicating fraud focus on major brands.
 
-- Higher fraud occurred between 12 AM–6 AM for Uber and Lyft, and Walmart, Target, Sears showed $20K–$35K losses, revealing off-hour vulnerabilities.
+- Higher fraud occurred between 12 AM–6 AM for Uber and Lyft, and Walmart, Target  and Sears showed $5-10K of losses for each hour, requiring strong monitoring and verification systems. 
 
 <img width="786" height="600" alt="Screenshot 2025-11-11 at 12 19 22" src="https://github.com/user-attachments/assets/8ca7df68-7ec1-4326-aed4-6ddadb2efeba" />
 
@@ -85,11 +85,9 @@ Collected model performance metrics including classification report (Precision, 
 Subsequently, implemented a more complex model using XGBoost, applying a similar preprocessing setup and tuning hyperparameters such as scale_pos_weight, n_estimators, max_depth, colsample_bytree, and subsample for optimal performance.
 
 
-
-
 ##  Model Deployment and Model Hosting:
 
-Saved the XGBoost model as a .pkl file since it provided the best balance between precision and recall. Developed a lightweight API service to accept new inputs and return predictions instantly, would deployed it on AWS Elastic Beanstalk soon to monitor logs, thresholds, and performance drifts.
+Saved the XGBoost model as a .pkl file since it provided the best balance between precision and recall. Developed a lightweight API service to accept new inputs and return predictions instantly, as a future step would deployed it on AWS Elastic Beanstalk soon to monitor logs, thresholds, and performance drifts.
 
 The deployment pipeline extends the training pipeline and implements a continuous deployment workflow. It preps the input data, trains a model, and  return predictions. 
 
@@ -97,9 +95,9 @@ The deployment pipeline extends the training pipeline and implements a continuou
 
 ### Feature Importance for feature contribution towards prediction:
 
-Provides which features contributed most toward our target, it uses split of decisions tress and where the information gain was maximum with min loss. 
+Performed Feature Importance  which features contributed most toward our target. It uses split of decisions tress, where the information gain was maximum with min loss. 
 
-Model is most driven by merchant category, transaction amount and spending patterns, and whether the card is present during the transaction — likely important indicators of fraud or transaction legitimacy.
+As a result, model iwas most driven by merchant category, transaction amount and spending patterns, and whether the card is present during the transaction — likely important indicators of fraud or transaction legitimacy.
 
 ---
 
@@ -129,6 +127,4 @@ Retain inference logs with trace IDs to training rows (data lineage).
 
 Privacy: redact PII, tokenize identifiers.
 
-
-### Instructions to run. 
 
