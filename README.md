@@ -75,15 +75,13 @@ Built bar charts to visualize merchant categories by fraud rate and fraud amount
 
 ### Model Selection, Model Traning and Model Evaluation:
 
-- Xgboost was selected as the base model due to its interpretability and ability to deal with complex features. 
+Multiple Models were evaluated (Logisitc Regression, Random Forest, Gradient Boosting and Decision trees and Xgboost. 
 
-Built a Scikit-learn pipeline that encapsulated, ColumnTransformer for scaling and preprocessing, scale_pos to address class imbalance. 
+Xgboost was selected as the base model due to its interpretability and ability to deal with complex features.  Built a Scikit-learn pipeline that encapsulated, ColumnTransformer for scaling and preprocessing, scale_pos to address class imbalance. 
 
-Collected model performance metrics including classification report (Precision, Recall, F1-score) and confusion matrix for evaluation.
+Collected model performance metrics including classification report (Precision, Recall, F1-score) and confusion matrix for evaluation for all the models. 
 
-Subsequently, implemented a more complex model using , applying a similar preprocessing setup and tuning hyperparameters such as scale_pos_weight, n_estimators, max_depth, colsample_bytree, and subsample for optimal performance.
-
-<img width="1536" height="1024" alt="162eef2e-8119-4c61-a8af-46b3493df58d" src="https://github.com/user-attachments/assets/4defe221-403e-4e4e-9488-938135f62552" />
+<img width="427" height="180" alt="Screenshot 2025-12-24 at 16 00 08" src="https://github.com/user-attachments/assets/a8f7b0b8-f088-4fbe-8af4-0dc730037c37" />
 
 
 ##  Model Deployment and Model Hosting:
@@ -130,8 +128,4 @@ Log request payload fingerprints, feature values (hashed for PII), model/feature
 Retain inference logs with trace IDs to training rows (data lineage).
 
 Privacy: redact PII, tokenize identifiers.
-
-### Files Requirement for Project:
-
-<img width="433" height="487" alt="Screenshot 2025-11-10 at 14 36 48" src="https://github.com/user-attachments/assets/19d06748-af75-4335-9d4d-ed050510d95a" />
 
