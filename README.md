@@ -1,14 +1,14 @@
 
-## FRAUD DETECTION MODEL (TRAIN, TEST AND DEPLOY):
+## FRAUD DETECTION ENGINER (TRAIN, TEST, DEPLOY AND CONTAINERIZE):
 
 ### OBJECTIVE:
 
-The objective of this project is to build and productionize a predictive model that classifies whether a given transaction is fraudulent or legitimate. Detecting fraudulent transactions is critical in the financial and banking sectors to minimize monetary losses, protect customers, and maintain trust.
+The objective of this project is to Build and Productionize a ML Engine that classifies whether a given transaction is Fraudulent or Legitimate. Detecting fraudulent transactions is critical in the financial and banking sectors to minimize monetary losses, protect customers, and maintain trust.
 
 ### GOAL:
 
-Maximize fraud detection accuracy (high recall) while maintaining a low false positive rate (balanced precision-recall trade-off). 
-To Provide an interface to Risk Team, banking system.
+Maximize fraud detection accuracy (high recall) while maintaining balanced precision-recall trade-off)
+To Provide an interface to Risk Team and Monitoring Teams to input details and receive fraud risk score, decisions and AI driven explanaitions using open source LLM.  
 
 ---- 
 ### STEPS:
@@ -16,9 +16,8 @@ To Provide an interface to Risk Team, banking system.
 1. **Data Collection and Preparation:**
 2. **Exploratory Data Analysis:**
 3. **Data Preprocessing and Feature Engineering:**
-4. **Model Selection, Model Training and Model Evaluation:**
-5. **Model Deployement and Model Hosting:**
-
+4. **Model Selection, Model Building, Model Training and Model Evaluation:**
+5. **Model Deployement and Model Hosting on Docker:**
 ____
 
 **THE FOLLOWING ASSUMPTIONS HAVE BEEN MADE ON  DATA:**
@@ -35,13 +34,9 @@ ____
 ## Data Collection and Preparation:
 
 - The dataset contained 700,000 rows and 28 features with mixed data types. It was received in JSON format and processed using the JSONLines library.
-
-- The dataset was checked for missing values using the isnull().sum() function and for empty strings and whitespace characters using regular expressions (Regex).
-  
+- The dataset was checked for missing values using the isnull().sum() function and for empty strings and whitespace characters using regular expressions (Regex).  
 - The nunique() function in Python was used to detect unique value distribution and category diversity.
-
 - The pd.to_datetime() function was applied to convert datetime columns stored as strings into proper date objects (TransactionDateTime, AccountOpenDate, ExpiryDate).
-
 - For numerical data distribution, skewness was calculated and visualized using KDE plots and histograms. For right-skewed transaction data, the log1p transformation was applied to normalize the distribution.
 
 ---
@@ -50,7 +45,6 @@ ____
 
 Built bar charts to visualize merchant categories by fraud rate and fraud amount, analyze channels (Pos_Entry_Mode),  and high-velocity patterns, and study temporal trends like transaction hour, night-time activity, and time since last transaction.
 
-<img width="990" height="388" alt="image" src="https://github.com/user-attachments/assets/743d033e-1744-47de-a284-3f0e4e142985" />
 
 **INSIGHTS:** 
   
@@ -86,22 +80,13 @@ Collected model performance metrics including classification report (Precision, 
 
 ##  Model Deployment and Model Hosting:
 
-Saved the XGBoost model as a .pkl file since it provided the best balance between precision and recall. Developed a lightweight API service to accept new inputs and return predictions instantly and packaged using dockerfile to put in on cloud. 
+Saved the XGBoost model as a .pkl file since it provided the best balance between precision and recall. Developed a lightweight API service to accept new inputs and return predictions instantly and packaged using dockerfile to allow users to access host server from anywhere 
 
 The deployment pipeline extends the training pipeline and implements a continuous deployment workflow. It preps the input data, trains a model, and  return predictions.
 
 The FastAPI layer strictly validates schema and enforces feature ordering to prevent training–serving skew using pydantic.
 
-
 <img width="1282" height="430" alt="image" src="https://github.com/user-attachments/assets/5e837d58-88b0-4a6a-8375-fbf5083d4a6a" />
-------
-
-### Feature Importance for feature contribution towards prediction:
-
-Performed Feature Importance  which features contributed most toward our target. It used split of decisions tress, where the information gain was maximum with min loss. 
-
-As a result, model was mosttly driven by merchant category, transaction amount, transaction hour, Card Present or Not AND Daily transaction Count — likely important indicators of fraud or transaction legitimacy.
-
 ---
 
 **Merchants, Compromised Acccounts and Peak Hours to Watch out:**
@@ -121,21 +106,18 @@ The UI Takes User inputs on transaction_amount, Merchant Category, Transaction_t
 
 The Model then works on engineering features, apply distance calculation and returns predictions based on logics. 
 
+### FUTURE IMPORTANT:
 
-- Working on creating AI agent Interface which help risk team and customers to understand if transaction is fraudulent by inputing Case details like Transaction_id, Transaction_Amount, Merchant_name, Transaction_Hour, Merchant_Location, Channel.
+- Working on creating AI agent Interface which help risk team and customers to list important features like Transaction_id, Transaction_Amount, Merchant_name, Transaction_Hour, Merchant_Location, Transation Channel.
 - AI would use SHAP Explainations and sends those inputs to API Endpoint and will respond based on model behaviour, ensuring sensitivty, data privacy and compliance.
 
 **1.Monitoring & Observability:**
 
-Performance: accuracy/precision/recall/PR-AUC 
-
-Data: schema/volume drift and label drift (once labels arrive).
+Performance: precision/recall/Recall@k 
 
 **2. Logging & Audit:**
 
 Log request payload fingerprints, feature values (hashed for PII), model/feature versions, decision, explanation, and outcome.
-
 Retain inference logs with trace IDs to training rows (data lineage).
-
 Privacy: redact PII, tokenize identifiers.
 
