@@ -53,7 +53,9 @@ Built bar charts to visualize merchant categories by fraud rate and fraud amount
 
 - Uber, Lyft, Walmart, Target, Sears, and Amazon had losses of $10K–$35K with 2–5% fraud rates, indicating fraud focus on major brands.
 
-- Higher fraud occurred between 12 AM–6 AM for Uber and Lyft, and Walmart, Target  and Sears showed $5-10K of losses for each hour, requiring strong monitoring and verification systems. 
+- Higher fraud occurred between 12 AM–6 AM for Uber and Lyft, and Walmart, Target  and Sears showed $5-10K of losses for each hour, requiring strong monitoring and verification systems.
+
+-  Some Account Numbers appeared consistently among these hours for similar merchants, Requires deliberate monitoring and strong verification.  
 
 <img width="786" height="600" alt="Screenshot 2025-11-11 at 12 19 22" src="https://github.com/user-attachments/assets/8ca7df68-7ec1-4326-aed4-6ddadb2efeba" />
 
@@ -67,7 +69,8 @@ Built bar charts to visualize merchant categories by fraud rate and fraud amount
 
 -----
 
-### Model Selection, Model Traning and Model Evaluation:
+## Model Selection, Model Traning and Model Evaluation:
+
 
 Multiple Models were evaluated (Logisitc Regression, Random Forest, Gradient Boosting and Decision trees and Xgboost. 
 
@@ -80,44 +83,34 @@ Collected model performance metrics including classification report (Precision, 
 
 ##  Model Deployment and Model Hosting:
 
-Saved the XGBoost model as a .pkl file since it provided the best balance between precision and recall. Developed a lightweight API service to accept new inputs and return predictions instantly and packaged using dockerfile to allow users to access host server from anywhere 
-
-The deployment pipeline extends the training pipeline and implements a continuous deployment workflow. It preps the input data, trains a model, and  return predictions.
-
-The FastAPI layer strictly validates schema and enforces feature ordering to prevent training–serving skew using pydantic.
+- Saved the XGBoost model as a .pkl file since it provided the best balance between precision and recall. 
+- Developed a lightweight API service to accept new inputs and return predictions instantly and packaged using dockerfile to allow users to access host server from anywhere.
+- The deployment pipeline extends the training pipeline and implements a continuous deployment workflow. It preps the input data, trains a model, and  return predictions.
+- The FastAPI layer strictly validates schema and enforces feature ordering to prevent training–serving skew using pydantic.
 
 <img width="1282" height="430" alt="image" src="https://github.com/user-attachments/assets/5e837d58-88b0-4a6a-8375-fbf5083d4a6a" />
+
 ---
 
-**Merchants, Compromised Acccounts and Peak Hours to Watch out:**
-
-- As result Uber, Lyft, Ebay.com, Walmart, discount, Gap and Sears consistently appeared in list where Fraud transaction volume were high. This evidented from the temporal analysis where hours like 12:00 AM, 01:00 AM and 03:00 AM were targeted mostly and these specific merchants showed fraudulent activity indicating low monitoring hours or bot testing.
-- Some Account Numbers appeared consistently among these hours for similar merchants, Requires deliberate monitoring and strong verification.  
-
-#### Fraud Detection  UI:
+#### Fraud Detection UI:
 
 <img width="1161" height="590" alt="Screenshot 2025-12-25 at 23 35 23" src="https://github.com/user-attachments/assets/f9e69fae-a357-455c-a0ae-460d26a10519" />
 
-The UI Takes User inputs on transaction_amount, Merchant Category, Transaction_time, Zip Code and State, which sends the request to preodict @post at endpoint, which then return backs to predictions using Xgboost model (using preprocessing inside pipeline). 
+The UI Takes User inputs on transaction_amount, Merchant Category, Transaction_time, Zip Code and State, which sends the request to predict @post at endpoint, which then return backs to predictions using Xgboost model (using preprocessing pipeline). 
 
 #### Results:
 
 <img width="1038" height="302" alt="Screenshot 2025-12-25 at 23 34 14" src="https://github.com/user-attachments/assets/07a30532-4e44-4288-87e5-563949ba3968" />
 
-The Model then works on engineering features, apply distance calculation and returns predictions based on logics. 
+The Model then works on engineering features, apply distance calculation and returns predictions based on logic provided. 
 
 ### FUTURE IMPORTANT:
 
 - Working on creating AI agent Interface which help risk team and customers to list important features like Transaction_id, Transaction_Amount, Merchant_name, Transaction_Hour, Merchant_Location, Transation Channel.
 - AI would use SHAP Explainations and sends those inputs to API Endpoint and will respond based on model behaviour, ensuring sensitivty, data privacy and compliance.
 
-**1.Monitoring & Observability:**
+**Monitoring & Observability:**
 
 Performance: precision/recall/Recall@k 
 
-**2. Logging & Audit:**
-
-Log request payload fingerprints, feature values (hashed for PII), model/feature versions, decision, explanation, and outcome.
-Retain inference logs with trace IDs to training rows (data lineage).
-Privacy: redact PII, tokenize identifiers.
 
