@@ -106,10 +106,60 @@ The Model works on engineering features and returns predictions based on logic p
 
 ### FUTURE IMPORTANT:
 
-- Working on creating AI agent Interface which help risk team and customers to list important features like Transaction_id, Transaction_Amount, Merchant_name, Transaction_Hour, Merchant_Location, Transation Channel.
-  
+- Working on creating AI agent Interface which help risk team and customers to list important features like Transaction_id, Transaction_Amount, Merchant_name, Transaction_Hour, Merchant_Location, Transation Channel.  
 - AI would use SHAP Explainations and sends those inputs to API Endpoint and will respond based on model behaviour, ensuring sensitivty, data privacy and compliance.
+- Monitoring & Observability, Performance: precision/recall/Recall@k
 
-**Monitoring & Observability:**
+---
 
-Performance: precision/recall/Recall@k 
+### Prerequisites
+
+Make sure you have the following installed:
+Python 3.9+
+pip
+Git
+(Optional) Docker
+
+##### Check versions:
+python --version
+pip --version
+
+### How to Run the Project (Local)
+🔹 1. Clone the Repository
+git clone https://github.com/shivanikanodia/Fraud-Detection-Engine-.git
+cd Fraud-Detection-Engine-
+
+🔹 2. Create & Activate Virtual Environment
+python -m venv venv
+source venv/bin/activate    # Mac/Linux
+venv\Scripts\activate       # Windows
+
+🔹 3. Install Dependencies
+pip install -r requirements.txt
+
+🔹 4. Run the Application
+python apps.py
+If this is a Flask/FastAPI app, open your browser at: http://127.0.0.1:3000
+
+5. Run with Docker
+🔹 Build Docker Image
+docker build -t fraud-detection-engine .
+
+🔹 Run Container
+docker run -p 3000:3000 fraud-detection-engine
+
+### Run the Notebook (Optional – For Analysis)
+Open: fraudsight_xgboost_powered_fraud_detection (1).ipynb
+
+This notebook includes:
+Exploratory Data Analysis
+Model training
+
+📈 Model Details: 
+Algorithm: XGBoost
+Output: Binary fraud classification
+Model file: fraud_xgb_pipeline.joblib
+Feature importance: xgb_feature_importance_gain.csv
+
+🔒 Notes:
+Virtual environments (venv/) are excluded from Git using .gitignore
