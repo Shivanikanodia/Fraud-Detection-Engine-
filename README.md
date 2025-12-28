@@ -1,17 +1,17 @@
 
-## FRAUD DETECTION ENGINE (TRAIN, TEST, DEPLOY AND CONTAINERIZE):
+### FRAUD DETECTION ENGINE (TRAIN, TEST, DEPLOY AND CONTAINERIZE):
 
-### OBJECTIVE:
+#### OBJECTIVE:
 
 The objective of this project is to Build and Productionize a ML Engine that classifies whether a given transaction is Fraudulent or Legitimate. Detecting fraudulent transactions is critical in the financial and banking sectors to minimize monetary losses, protect customers, and maintain trust.
 
-### GOAL:
+#### GOAL:
 
 Maximize fraud detection accuracy (high recall) while maintaining balanced precision-recall trade-off)
 To Provide an interface to Risk Team and Monitoring Teams to input details and receive fraud risk score, decisions and AI driven explanaitions using open source LLM.  
 
 ---- 
-### STEPS:
+#### STEPS:
 
 1. **Data Collection and Preparation:**
 2. **Exploratory Data Analysis:**
@@ -114,52 +114,60 @@ The Model works on engineering features and returns predictions based on logic p
 
 ### Prerequisites
 
-Make sure you have the following installed:
+**1. Make sure you have the following installed:**
 Python 3.9+
+
 pip
+
 Git
+
 (Optional) Docker
 
-##### Check versions:
+**2.Check versions:**
+
 python --version
+
 pip --version
 
-### How to Run the Project (Local)
-🔹 1. Clone the Repository
+### How to Run the Project (Local):
+
+🔹 1. Clone the Repository:
+
 git clone https://github.com/shivanikanodia/Fraud-Detection-Engine-.git
+
 cd Fraud-Detection-Engine-
 
-🔹 2. Create & Activate Virtual Environment
+🔹 2. Create & Activate Virtual Environment:
+
 python -m venv venv
+
 source venv/bin/activate    # Mac/Linux
+
 venv\Scripts\activate       # Windows
 
-🔹 3. Install Dependencies
+🔹 3. Install Dependencies:
+
 pip install -r requirements.txt
 
-🔹 4. Run the Application
+🔹 4. Run the Application:
+
 python apps.py
-If this is a Flask/FastAPI app, open your browser at: http://127.0.0.1:3000
 
-5. Run with Docker
-🔹 Build Docker Image
-docker build -t fraud-detection-engine .
+this is a Flask/FastAPI app, open your browser at: http://127.0.0.1:3000
 
-🔹 Run Container
-docker run -p 3000:3000 fraud-detection-engine
+5. Run with Docker:
+   
+ - Build Docker Image
+  docker build -t fraud-detection-engine .
 
-### Run the Notebook (Optional – For Analysis)
-Open: fraudsight_xgboost_powered_fraud_detection (1).ipynb
+- Run Container
+  docker run -p 3000:3000 fraud-detection-engine
 
-This notebook includes:
-Exploratory Data Analysis
-Model training
-
-📈 Model Details: 
+### Model Details: 
 Algorithm: XGBoost
 Output: Binary fraud classification
 Model file: fraud_xgb_pipeline.joblib
 Feature importance: xgb_feature_importance_gain.csv
 
-🔒 Notes:
+### Notes:
 Virtual environments (venv/) are excluded from Git using .gitignore
