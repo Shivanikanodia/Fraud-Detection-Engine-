@@ -102,15 +102,15 @@ The UI Takes User inputs on transaction_amount, Merchant Category, Transaction_t
 
 <img width="1038" height="302" alt="Screenshot 2025-12-25 at 23 34 14" src="https://github.com/user-attachments/assets/07a30532-4e44-4288-87e5-563949ba3968" />
 
-The Model then works on engineering features, apply distance calculation and returns predictions based on logic provided. 
+The Model works on engineering features and returns predictions based on logic provided.(Depends on business trade-off, Cost, Nature of Problem and Priorities) 
 
 ### FUTURE IMPORTANT:
 
 - Working on creating AI agent Interface which help risk team and customers to list important features like Transaction_id, Transaction_Amount, Merchant_name, Transaction_Hour, Merchant_Location, Transation Channel.
+  
 - AI would use SHAP Explainations and sends those inputs to API Endpoint and will respond based on model behaviour, ensuring sensitivty, data privacy and compliance.
 
 **Monitoring & Observability:**
 
 Performance: precision/recall/Recall@k 
-
 
