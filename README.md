@@ -104,8 +104,8 @@ to prioritize high recall while maintaining acceptable precision for manual revi
 
 - Saved the XGBoost model as a .pkl file since it provided the best balance between precision and recall. 
 - Developed a lightweight API service to accept new inputs and return predictions instantly and packaged using dockerfile to allow users to access host server from anywhere.
-- The deployment pipeline extends the training pipeline and implements a continuous deployment workflow. It preps the input data, trains a model, and  return predictions.
-- The FastAPI layer strictly validates schema and enforces feature ordering to prevent training–serving skew using pydantic.
+-  It preps the input data, trains a model, and  return predictions.
+- The FastAPI layer strictly validates schema and enforces feature ordering to prevent training–serving skew using pydantic, and Containerized the app.
   
 
 <img width="1282" height="430" alt="image" src="https://github.com/user-attachments/assets/5e837d58-88b0-4a6a-8375-fbf5083d4a6a" />
