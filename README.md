@@ -71,10 +71,21 @@ Built bar charts to visualize merchant categories by fraud rate and fraud amount
 
 ## Model Selection, Model Traning and Model Evaluation:
 
-To reduce data leakage, transactions were split using a time-based strategy (train on earlier dates, test on later dates), ensuring the model does not
+- To reduce data leakage, transactions were split using a time-based strategy (train on earlier dates, test on later dates), ensuring the model does not
 learn from future information.
+-Stratified train-test split and scale_pos_weight = (# non-fraud / # fraud) in XGBoost for imbalance data.
 
-Stratified train-test split and scale_pos_weight = (# non-fraud / # fraud) in XGBoost for imbalance data. 
+**Model Training:**
+Two datasets were explored during development.
+
+- Initial exploratory modeling was conducted on a transaction-only dataset.
+  to understand merchant, time, account level activity and channel-level fraud patterns.
+
+- The final production model was trained on an enriched dataset that includes
+  both transaction-level and user-level features (demographics, location,
+  distance-based features), which significantly improved recall and stability.
+
+Only the enriched dataset and corresponding pipeline are used in production.
 
 Multiple Models were evaluated: Logisitc Regression, Random Forest, Gradient Boosting Decision trees and Xgboost. 
 
