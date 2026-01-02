@@ -45,17 +45,27 @@ ____
 
 Built bar charts to visualize merchant categories by fraud rate and fraud amount, analyze channels (Pos_Entry_Mode),  and high-velocity patterns, and study temporal trends like transaction hour, night-time activity, and time since last transaction.
 
-
 **INSIGHTS:** 
-  
 
-- IN AND OUT showed a high fraud rate even with moderate transaction volume.
+• IN and OUT transaction modes exhibited disproportionately high fraud rates
+  despite moderate transaction volumes, indicating elevated risk associated
+  with specific POS entry patterns.
 
-- Uber, Lyft, Walmart, Target, Sears, and Amazon had losses of $10K–$35K with 2–5% fraud rates, indicating fraud focus on major brands.
+• Major merchants such as Uber, Lyft, Walmart, Target, Sears, and Amazon
+  incurred losses ranging from $10K to $35K with fraud rates between 2–5%,
+  suggesting that fraud activity is concentrated on high-frequency,
+  well-known brands.
 
-- Higher fraud occurred between 12 AM–6 AM for Uber and Lyft, and Walmart, Target  and Sears showed $5-10K of losses for each hour, requiring strong monitoring and verification systems.
+• Temporal analysis revealed elevated fraud incidence between 12 AM and 6 AM,
+  particularly for ride-hailing and large retail merchants. Walmart, Target,
+  and Sears each showed hourly losses of $5K–$10K during these periods,
+  highlighting the need for time-based risk monitoring.
 
--  Some Account Numbers appeared consistently among these hours for similar merchants, Requires deliberate monitoring and strong verification.  
+• Repeated occurrence of specific account numbers during high-risk hours
+  across similar merchants suggests coordinated or repeated fraud behavior,
+  motivating the inclusion of velocity-based and account-level aggregation
+  features.
+
 
 <img width="786" height="600" alt="Screenshot 2025-11-11 at 12 19 22" src="https://github.com/user-attachments/assets/8ca7df68-7ec1-4326-aed4-6ddadb2efeba" />
 
