@@ -71,12 +71,19 @@ Built bar charts to visualize merchant categories by fraud rate and fraud amount
 
 ## Model Selection, Model Traning and Model Evaluation:
 
+To reduce data leakage, transactions were split using a time-based strategy (train on earlier dates, test on later dates), ensuring the model does not
+learn from future information.
 
-Multiple Models were evaluated (Logisitc Regression, Random Forest, Gradient Boosting and Decision trees and Xgboost. 
+Stratified train-test split and scale_pos_weight = (# non-fraud / # fraud) in XGBoost for imbalance data. 
 
-Xgboost was selected as the base model due to its interpretability and ability to deal with complex features.  Built a Scikit-learn pipeline that encapsulated, ColumnTransformer for scaling and preprocessing, scale_pos to address class imbalance. 
+Multiple Models were evaluated: Logisitc Regression, Random Forest, Gradient Boosting Decision trees and Xgboost. 
 
-Collected model performance metrics including classification report (Precision, Recall, F1-score) and confusion matrix for evaluation for all the models. 
+Xgboost was selected as the base model due to its interpretability and ability to deal with complex features.  Built a Scikit-learn pipeline that encapsulated, ColumnTransformer for scaling and preprocessing.
+
+- Threshold Strategy:
+The fraud classification threshold is set to 0.7 instead of the default 0.5
+to prioritize high recall while maintaining acceptable precision for manual review capacity.
+
 
 <img width="427" height="180" alt="Screenshot 2025-12-24 at 16 00 08" src="https://github.com/user-attachments/assets/a8f7b0b8-f088-4fbe-8af4-0dc730037c37" />
 
@@ -87,6 +94,7 @@ Collected model performance metrics including classification report (Precision, 
 - Developed a lightweight API service to accept new inputs and return predictions instantly and packaged using dockerfile to allow users to access host server from anywhere.
 - The deployment pipeline extends the training pipeline and implements a continuous deployment workflow. It preps the input data, trains a model, and  return predictions.
 - The FastAPI layer strictly validates schema and enforces feature ordering to prevent training–serving skew using pydantic.
+  
 
 <img width="1282" height="430" alt="image" src="https://github.com/user-attachments/assets/5e837d58-88b0-4a6a-8375-fbf5083d4a6a" />
 
@@ -107,8 +115,12 @@ The Model works on engineering features and returns predictions based on logic p
 ### FUTURE IMPORTANT:
 
 - Working on creating AI agent Interface which help risk team and customers to list important features like Transaction_id, Transaction_Amount, Merchant_name, Transaction_Hour, Merchant_Location, Transation Channel.  
-- AI would use SHAP Explainations and sends those inputs to API Endpoint and will respond based on model behaviour, ensuring sensitivty, data privacy and compliance.
-- Monitoring & Observability, Performance: precision/recall/Recall@k
+- The AI agent will not generate explanations directly. Instead, SHAP feature attributions will be computed by the model, and an open-source LLM will convert these structured outputs into human-readable explanations while preserving compliance and data privacy.
+
+**Monitoring & Observability:**
+- Data drift detection using Population Stability Index (PSI)
+- Performance monitoring using Recall@K and Precision over rolling windows
+- API monitoring: latency, error rate, model version, and prediction logs
 
 ---
 
@@ -153,7 +165,7 @@ pip install -r requirements.txt
 
 python apps.py
 
-this is a Flask/FastAPI app, open your browser at: http://127.0.0.1:3000
+this is a Flask API app, open your browser at: http://127.0.0.1:3000
 
 5. Run with Docker:
    
