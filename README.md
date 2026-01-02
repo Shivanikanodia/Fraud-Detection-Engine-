@@ -8,7 +8,7 @@ The objective of this project is to Build and Productionize a ML Engine that cla
 #### GOAL:
 
 Maximize fraud detection accuracy (high recall) while maintaining balanced precision-recall trade-off)
-To Provide an interface to Risk Team and Monitoring Teams to input details and receive fraud risk score, decisions and AI driven explanaitions using open source LLM.  
+To Provide an interface to Risk Team and Monitoring Teams to input details and receive fraud risk score, decisions and AI driven explanaitions using SHAP.  
 
 ---- 
 #### STEPS:
@@ -75,15 +75,16 @@ Built bar charts to visualize merchant categories by fraud rate and fraud amount
 learn from future information.
 -Stratified train-test split and scale_pos_weight = (# non-fraud / # fraud) in XGBoost for imbalance data.
 
-**Model Training:**
+### **Model Training:**
+
 Two datasets were explored during development.
 
-- Initial exploratory modeling was conducted on a transaction-only dataset.
+- Initial exploratory modeling was conducted on a transaction-only dataset. (01_eda_and_prototype_model.ipynb)
   to understand merchant, time, account level activity and channel-level fraud patterns.
 
 - The final production model was trained on an enriched dataset that includes
   both transaction-level and user-level features (demographics, location,
-  distance-based features), which significantly improved recall and stability.
+  distance-based features), which significantly improved recall and stability. (02_production_training_pipeline.ipynb)
 
 Only the enriched dataset and corresponding pipeline are used in production.
 
